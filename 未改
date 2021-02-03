@@ -1,0 +1,164 @@
+#define _CRT_SECURE_NO_WARNINGS 1
+#include<stdio.h>
+#include<string.h>
+#include<stdlib.h>
+#include<time.h>
+  char shuzu[2][2] = { ' ' };
+void fuzhi ( char shuzu[2][2])
+{
+	int i; int j;
+	for (i = 0; i < 3; i++)
+	{
+		for (j = 0; j < 3; j++)
+		{
+			shuzu[i][j] = ' ';
+		}
+	}
+}
+
+
+
+
+
+void xianshi( char shuzu[2][2]) {
+	int i; int j;
+	for (i = 0; i < 3; i++)
+	{
+		for (j = 0; j < 3; j++)
+		{
+			printf(" %c ", shuzu[i][j]);
+				if (j < 2)
+				{
+					printf("|");
+
+				}
+		}
+
+		printf("\n");
+		if (i < 2) {
+			for (j = 0; j < 3; j++) {
+				printf("___");
+				if (j < 2) printf("|");
+			} printf("\n");
+		}
+	}
+
+
+
+
+
+
+}
+void  xiaqi(char shuzu[2][2])
+{
+	int x=9; int y=9; 
+	printf("请输入下棋的位置\n");
+		while (1) {
+			scanf("%d %d", &x, & y);
+			if (shuzu[x - 1][y - 1] == ' ')
+			{
+				shuzu[x - 1][y - 1] = '$'; break;
+			}
+			else
+				printf("请再次输入\n");
+		}
+}
+void  xiaqi1(char shuzu[2][2])
+{
+	int x=9; int y=9;
+	printf("请输入下棋的位置\n");
+	while (1) {
+		scanf("%d %d", &x, &y);
+		if (shuzu[x - 1][y - 1] == ' ')
+		{
+			shuzu[x - 1][y - 1] = '#'; break;
+		}
+		else
+			printf("请再次输入\n");
+	}
+}
+char shuying(char shuzu[2][2])
+{
+	int j;
+	int i;
+	for (i = 0; i < 3; i++)
+	{
+		if (shuzu[i][0] == shuzu[i][1] == shuzu[i][2] == '$')
+			return 'w';
+		if (shuzu[i][0] == shuzu[i][1] == shuzu[i][2] == '#')
+			return 'l';
+
+	}
+	for (j = 0; j < 3; j++)
+	{
+		if (shuzu[0][j] == shuzu[1][j] == shuzu[2][j] == '$')
+			return 'w';
+		if (shuzu[0][j] == shuzu[1][j] == shuzu[2][j] == '#')
+			return 'l';
+	}
+	if (shuzu[0][0] == shuzu[1][1] == shuzu[2][2] == '$' || shuzu[0][2] == shuzu[1][1] == shuzu[2][0] == '$')
+		return 'w';
+	if (shuzu[0][0] == shuzu[1][1] == shuzu[2][2] == '$' || shuzu[0][2] == shuzu[1][1] == shuzu[2][0] == '#')
+		return 'l';
+	return 'g';
+}
+void meun() {
+	printf("来玩游戏吧！\n");
+	printf("!!!!! 1.play 0.over!!!!!!!!!!!\n");
+
+	printf("请做出你的选择\n");
+}
+void game()
+{
+	int i; int j; int shu = 0;
+
+	char shuzu[2][2] = { ' ' };
+	fuzhi(shuzu);
+	xianshi(shuzu);
+	while (1)
+	{
+		int k = 0;
+		xiaqi(shuzu);
+		xianshi(shuzu);
+		k = shuying(shuzu);
+		if (k == 'w') { printf("玩家赢\n"); break; }
+		if (k == 'g') { printf("继续游戏\n"); }
+
+
+		xiaqi1(shuzu);
+		xianshi(shuzu);
+		k = shuying(shuzu);
+		if (k == 'l') { printf("电脑赢\n"); break; }
+		if (k == 'g')
+		{
+			printf("继续游戏\n");
+
+		}
+		for (i = 0; i < 3; i++)
+		{
+			for (j = 0; j < 3; j++)
+			{
+				if (shuzu[i][j] == ' ')
+					shu = 1;
+			}
+		}
+		if (shu == 0) { printf("平局\n"); break; }
+	}
+}
+
+int main() {
+	char shuzu[2][2] = {' '};
+	int input = 0;
+	do {
+		meun();
+		scanf("%d", &input);
+		switch (input)
+		{
+		case 1:game(); break;
+
+		default: { printf("请输入正确的数字\n");     break; }
+		}
+	} while (input);
+	printf("游戏结束");
+	return 0;
+}
