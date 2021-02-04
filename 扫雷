@@ -1,0 +1,121 @@
+#define _CRT_SECURE_NO_WARNINGS 1
+
+#include "game.h"
+
+void chushi(char x[rows][cols], int rows, int cols, char ch ) 
+{
+	int i; int j;
+	for (i = 0; i < rows; i++)
+	{
+		for (j = 0; j < cols; j++)
+		{
+			x[i][j] = ch;
+
+		}
+	}
+}
+void dayin(char x[rows][cols],int row,int col) 
+{	int i; int j;
+for (i = 0; i <= row; i++)
+{
+	printf("%d", i);
+	
+}printf("\n");
+for (i = 1; i <= row; i++)
+{
+	printf("%d", i);
+	for (j = 1; j <= col; j++) 
+	{
+			
+			printf("%c", x[i][j]);
+	} 
+	printf("\n");
+  }
+}
+void bulei(char a[rows][cols], int row, int col)
+{
+	int i = 0; int  j= 0;
+	int count = 0;
+	while (count < 10)
+	{   
+		i = rand() % row + 1; j = rand() % col + 1;
+		if (a[i][j] != '1')
+		{
+			a[i][j] = '1';
+			count++;
+		}
+	}
+}
+int jilei(char a[rows][cols], int z, int y) 
+{
+	 return a[z-1][y] + a[z][y-1] + a[z][y+1] + a[z+1][y] + a[z-1][y-1] + a[z-1][y+1] + a[z+1][y+1] + a[z+1][y-1]  - 8 * '0';
+}
+void saolei(char a[rows][cols],char x[rows][cols], int row , int col) 
+{
+	int z; int y; int pai = 0;
+	printf("请输入要扫的雷\n");
+	while (pai<row*col-10) 
+	{
+		scanf("%d %d", &z, &y);
+		if (z > 0 && z <= 9 && y > 0 && y <= 9)
+		{
+			if (a[z][y] == '1')
+			{
+				printf("碰雷了\n"); dayin(a, row, col); break;
+			}
+			else 
+			{
+				x[z][y] =  jilei(a,z, y)+'0';
+				dayin(x, row, col);
+				pai++;
+			}
+
+		}
+		else
+			printf("请重新输入\n");
+	}
+	if (pai == row * col - 10)
+	{
+		printf("胜利\n");
+	}
+}#define _CRT_SECURE_NO_WARNINGS 1
+
+#include"game.h"
+
+void meun() {
+	printf("###########1.play###########\n");
+	printf("###########0.over#################\n");
+
+
+}
+void game()
+{
+	char a[rows][cols] = { 0 };
+	char x[rows][cols] = { 0 };
+	chushi(a, rows, cols , '0');
+	chushi(x, rows, cols , '*');
+	dayin(x, row, col );
+	bulei(a, row, col );
+	saolei(a, x, row, col );
+}
+
+
+int main()
+{
+	int input;
+	srand((unsigned)time(NULL));
+	do {
+		meun(); printf("请输入\n"); scanf("%d", &input);
+		switch (input)
+		{
+		case 1: game();
+		case 0:printf("游戏结束\n");
+		default: printf("请重新输入\n");
+		}
+	} while (input);
+
+
+
+
+
+}
