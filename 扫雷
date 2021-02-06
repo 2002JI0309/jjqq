@@ -119,3 +119,17 @@ int main()
 
 
 }
+#include<stdio.h>
+#include<stdlib.h>
+#include<time.h>
+
+
+constexpr auto row = 9;
+constexpr auto col = 9;
+constexpr auto rows = 11;
+constexpr auto cols = 11;
+void chushi(char x[rows][cols], int rows, int cols, char ch);
+void dayin(char x[rows][cols], int row, int col);
+void bulei(char a[rows][cols], int row, int col);
+int jilei(char a[rows][cols], int z, int y);
+void saolei(char a[rows][cols], char x[rows][cols], int row, int col);
